@@ -69,6 +69,20 @@ class Spotify:
             "name": name,
             "description": html.unescape(results["description"]),
         }
+    
+    def getUserPlaylists(self, user):
+        pl = self.api.user_playlists(user)["items"]
+        count = 1
+        more = len(pl) == 50
+        while more:
+            results = self.api.user_playlists(user, offset=count * 50)["items"]
+            pl.extend(results)
+            more = len(results) == 50
+            count = count + 1
+
+        user_playlists = [p for p in pl if p["owner"]["id"] == user and p["items"]["total"] > 0]
+        print(f"user owned playlists found - {len(user_playlists)}")
+        return user_playlists
 
     def getLikedPlaylist(self):
         response = self.api.current_user_saved_tracks(limit=50)

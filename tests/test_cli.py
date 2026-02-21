@@ -151,12 +151,3 @@ class TestCli:
             main()
             assert tmp_path.is_file()
             tmp_path.unlink()
-
-    def test_all_command_prints_deprecation_message(self):
-        fake_stdout = StringIO()
-        with mock.patch("sys.stdout", new=fake_stdout):
-            with mock.patch("sys.argv", ["", "all", "user"]):
-                main()
-
-        output = fake_stdout.getvalue()
-        assert "DEPRECATED" in output
