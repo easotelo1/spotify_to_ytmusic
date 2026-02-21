@@ -80,7 +80,7 @@ class Spotify:
             tracks.extend(response["items"])
 
         return {
-            "tracks" :  build_results(tracks, nested_key="track"),
+            "tracks":  build_results(tracks, nested_key="track"),
             "name": "Liked songs (Spotify)",
             "description": "Your liked tracks from spotify",
         }
