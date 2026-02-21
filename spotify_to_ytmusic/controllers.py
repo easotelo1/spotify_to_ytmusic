@@ -31,30 +31,8 @@ def _init():
 
 
 def all(args):
-    spotify, ytmusic = _init()
-    pl = spotify.getUserPlaylists(args.user)
-    print(str(len(pl)) + " playlists found. Starting transfer...")
-    count = 1
-    for p in pl:
-        print("Playlist " + str(count) + ": " + p["name"])
-        count = count + 1
-        try:
-            playlist = spotify.getSpotifyPlaylist(p["external_urls"]["spotify"])
-            videoIds = ytmusic.search_songs(
-                playlist["tracks"], use_cached=args.use_cached
-            )
-            playlist_id = ytmusic.create_playlist(
-                p["name"],
-                p["description"],
-                "PUBLIC" if p["public"] else "PRIVATE",
-                videoIds,
-            )
-            if args.like:
-                for id in videoIds:
-                    ytmusic.rate_song(id, "LIKE")
-            _print_success(p["name"], playlist_id)
-        except Exception as ex:
-            print(f"Could not transfer playlist {p['name']}. {ex!s}")
+    print("----------ALL HAS BEEN DEPRECATED DUE TO RECENT SPOTIFY API CHANGES----------")
+    print("----------Please use spotify_to_ytmusic create <spotifylink> to transfer a playlist associated with your spotify account. Public playlists not tied to your spotify account are no longer allowed----------")
 
 
 def _create_ytmusic(args, playlist, ytmusic):
