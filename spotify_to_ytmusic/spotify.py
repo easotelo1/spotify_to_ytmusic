@@ -80,9 +80,7 @@ class Spotify:
             more = len(results) == 50
             count = count + 1
 
-        user_playlists = [p for p in pl if p["owner"]["id"] == user and p["items"]["total"] > 0]
-        print(f"user owned playlists found - {len(user_playlists)}")
-        return user_playlists
+        return [p for p in pl if p["owner"]["id"] == user and p["items"]["total"] > 0]
 
     def getLikedPlaylist(self):
         response = self.api.current_user_saved_tracks(limit=50)
